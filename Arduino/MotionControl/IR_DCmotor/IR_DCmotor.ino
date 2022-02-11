@@ -9,7 +9,7 @@
 int receiver_pin = 2;      //output pin of IR receiver to pin 2 of arduino
 //initializing the pins for leds
 int left_motor1 = 11;      //pin 6 of arduino to pin 7 of l293d
-int left_motor2 = 12;      //pin 7 of arduino to pin 2 of l293d
+int left_motor2 =  12;      //pin 7 of arduino to pin 2 of l293d
 int right_motor1  = 6;     //pin 5 of arduino to pin 10 of l293d
 int right_motor2 = 5;      //pin 4 of arduino to pin 15 of l293d
 
@@ -34,35 +34,35 @@ void loop() {
       case fwd_button:
         digitalWrite(left_motor1, LOW);
         digitalWrite(left_motor2, HIGH);
-//        digitalWrite(right_motor1, HIGH);
-//        digitalWrite(right_motor2, LOW);
+        digitalWrite(right_motor1, HIGH);
+        digitalWrite(right_motor2, LOW);
         break;
       case rev_button:
         digitalWrite(left_motor1, HIGH);
         digitalWrite(left_motor2, LOW);
-//        digitalWrite(right_motor1, LOW);
-//        digitalWrite(right_motor2, HIGH);
+        digitalWrite(right_motor1, LOW);
+        digitalWrite(right_motor2, HIGH);
         break;
       case left_button:
         digitalWrite(left_motor1, LOW);
         digitalWrite(left_motor2, HIGH);
-//        digitalWrite(right_motor1, HIGH);
-//        digitalWrite(right_motor2, HIGH);
+        digitalWrite(right_motor1, HIGH);
+        digitalWrite(right_motor2, HIGH);
         break;
       case right_button:
         digitalWrite(left_motor1, HIGH);
         digitalWrite(left_motor2, HIGH);
-//        digitalWrite(right_motor1, HIGH);
-//        digitalWrite(right_motor2, LOW);
+        digitalWrite(right_motor1, HIGH);
+        digitalWrite(right_motor2, LOW);
         break;
       case Stop_button:
         digitalWrite(left_motor1, LOW);
         digitalWrite(left_motor2, LOW);
-//        digitalWrite(right_motor1, LOW);
-//        digitalWrite(right_motor2, LOW);
+        digitalWrite(right_motor1, LOW);
+        digitalWrite(right_motor2, LOW);
         break;
     }
-    delay(1000);
+//    delay(1000)-;
     receiver.resume();
   }
 }
