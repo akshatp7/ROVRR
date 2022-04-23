@@ -48,10 +48,10 @@ void setup() {
   ledcSetup(right_ch1, freq, resolution);
   ledcSetup(right_ch2, freq, resolution);
   // attach the channel to the GPIO to be controlled
-  ledcAttachPin(left_motor1, left_ch1);
-  ledcAttachPin(left_motor2, left_ch2);
-  ledcAttachPin(right_motor1, right_ch1);
-  ledcAttachPin(right_motor2, right_ch2);
+  ledcAttachPin(left_motor2, left_ch1);
+  ledcAttachPin(left_motor1, left_ch2);
+  ledcAttachPin(right_motor2, right_ch1);
+  ledcAttachPin(right_motor1, right_ch2);
 
   WiFi.begin(ssid, password);
   Serial.println("Connecting");
@@ -84,8 +84,8 @@ void loop() {
     Serial.println(msg.data());
   }
   JSONVar incoming_payload = JSON.parse(msg.data());
-  int x_input = (int)incoming_payload["X"];
-  int y_input = (int)incoming_payload["Y"];
+  int x_input = (int)incoming_payload["Y"];
+  int y_input = (int)incoming_payload["X"];
   if (x_input > 255 || y_input > 255 || x_input < -255 || y_input < -255) {
     Serial.println("Wrong input from controller");
   }
@@ -133,27 +133,28 @@ void loop() {
       ledcWrite(right_ch2, 0);
     }
     else if (x_input < 255 && x_input >= 200 && abs(y_input) < 100) { // right turn, spd2
-      ledcWrite(left_ch1, 0);
-      ledcWrite(left_ch2, 255);
-      ledcWrite(right_ch1, 255);
-      ledcWrite(right_ch2, 0);
-    }
-    else if (x_input < 200 && x_input > 150 && abs(y_input) < 100) { // right turn, spd1
-      ledcWrite(left_ch1, 0);
-      ledcWrite(left_ch2, 0);
-      ledcWrite(right_ch1, 255);
-      ledcWrite(right_ch2, 0);
-    }
-    else if (x_input > -255 && x_input <= -200 && abs(y_input) < 100) { // left turn, spd2
       ledcWrite(left_ch1, 255);
       ledcWrite(left_ch2, 0);
       ledcWrite(right_ch1, 0);
       ledcWrite(right_ch2, 255);
     }
-    else if (x_input > -200 && x_input < -150 && abs(y_input) < 100) { // left turn, spd1
+    else if (x_input < 200 && x_input > 150 && abs(y_input) < 100) { // right turn, spd1
       ledcWrite(left_ch1, 255);
       ledcWrite(left_ch2, 0);
       ledcWrite(right_ch1, 0);
+      ledcWrite(right_ch2, 0);
+    }
+    else if (x_input > -255 && x_input <= -200 && abs(y_input) < 100) { // left turn, spd2
+      ledcWrite(left_ch1, 0);
+      ledcWrite(left_ch2, 255);
+      ledcWrite(right_ch1, 255);
+      ledcWrite(right_ch2, 0);
+    }
+    else if (x_input > -200 && x_input < -150 && abs(y_input) < 100) { // left turn, spd1
+
+      ledcWrite(left_ch1, 0);
+      ledcWrite(left_ch2, 0);
+      ledcWrite(right_ch1, 255);
       ledcWrite(right_ch2, 0);
     }
   }
